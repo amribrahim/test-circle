@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo Hello, World! >> output.txt"
+          command: echo Hello, World! >> output.txt
       - persist_to_workspace:
           root: .
           paths: 
@@ -19,9 +19,10 @@ jobs:
     steps:
       - run:
           name: "print hello"
-          command: "cat ./output.txt"
-      - attach_workspace:
+          - attach_workspace:
           at: .
+          command: "cat ./output.txt"
+      
 
 workflows:
   say-hello-workflow:
