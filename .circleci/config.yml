@@ -1,0 +1,32 @@
+version: 2.1
+jobs:
+  say-hello:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World! >> output.txt"
+      - persist_to_workspace:
+          root: .
+          paths: 
+            - ./output.txt
+   
+  print-hello:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: "print hello"
+          command: "cat ./output.txt"
+      - attach_workspace:
+          at: .
+
+workflows:
+  say-hello-workflow:
+    jobs:
+      - say-hello
+      - print-hello:
+          requires:
+            - say-hello
