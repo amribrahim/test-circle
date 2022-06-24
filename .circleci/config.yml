@@ -17,11 +17,9 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - run:
-          name: "print hello"
-          - attach_workspace:
+      - attach_workspace:
           at: .
-          command: "cat ./output.txt"
+      - run: "cat ./output.txt"
       
 
 workflows:
